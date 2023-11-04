@@ -4,7 +4,7 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { onLoadMore } from './load-more';
 import { renderMarkup } from './mark-up';
-import refs from './refs';
+import { refs } from './refs';
 
 const apiPixabay = new ApiPixabay();
 
