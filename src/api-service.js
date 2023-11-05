@@ -23,7 +23,6 @@ export default class ApiPixabay {
     this.searchQuery = newQuery;
   }
   incrementPage() {
-    console.log(this.page);
     this.page += 1;
   }
 }

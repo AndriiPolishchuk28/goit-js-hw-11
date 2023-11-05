@@ -2,9 +2,9 @@ import ApiPixabay from './api-service';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import { onLoadMore } from './load-more';
 import { renderMarkup } from './mark-up';
 import { refs } from './refs';
+import { smoothScroll } from './smoothScroll';
 
 const apiPixabay = new ApiPixabay();
 
@@ -53,10 +53,33 @@ export async function getData() {
   return res;
 }
 
+export async function onLoadMore() {
+  apiPixabay.incrementPage();
+  try {
+    const card = await getData();
+    apiPixabay.totalPage = Math.ceil(card.totalHits / 40);
+    renderMarkup(card.hits);
+    smoothScroll();
+    if (apiPixabay.totalPage === apiPixabay.page) {
+      onEndCollection();
+      refs.loadMoreBtn.classList.add('hidden');
+    }
+  } catch (err) {
+    console.log(err);
+  }
+  lightbox.refresh();
+}
+
 function onError(message) {
   return Notify.failure(message);
 }
 
 function onResultNotify(total) {
   return Notify.success(`Hooray! We found ${total} images.`);
+}
+
+function onEndCollection() {
+  return Notify.success(
+    `"We're sorry, but you've reached the end of search results."`
+  );
 }

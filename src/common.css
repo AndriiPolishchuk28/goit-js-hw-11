@@ -32,3 +32,12 @@
 .hidden {
   display: none;
 }
+
+input {
+  height: 25px;
+  width: 200px;
+}
+
+.search-btn {
+  width: 100px;
+}
