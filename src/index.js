@@ -18,6 +18,7 @@ async function onSearch(e) {
   apiPixabay.page = 1;
   apiPixabay.query = e.currentTarget.elements.searchQuery.value;
   if (!apiPixabay.query) {
+    refs.loadMoreBtn.classList.add('hidden');
     onError('Write the value');
     return;
   }
